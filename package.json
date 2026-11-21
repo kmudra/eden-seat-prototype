@@ -1,0 +1,13 @@
+{
+  "name": "eden-seat-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Approximate Eden stadium seat-view prototype",
+  "scripts": {
+    "dev": "node preview.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "vendor": "node scripts/vendor.mjs"
+  },
+  "dependencies": { "three": "0.180.0" }
+}

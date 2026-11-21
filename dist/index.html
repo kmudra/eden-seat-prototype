@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#131619">
+  <meta name="description" content="Prozkoumej zjednodušený 3D Eden, vyber si sedadlo v ukázkovém sektoru 115 a podívej se na hřiště.">
+  <title>Eden — Pohled ze sedadla</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js","three/addons/controls/OrbitControls.js":"./vendor/OrbitControls.js"}}</script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="./" class="brand" aria-label="Eden, úvod"><span class="brand-symbol" aria-hidden="true">✦</span><span>EDEN<span class="brand-divider">/</span><span class="brand-sub">TVŮJ POHLED</span></span></a>
+    <div class="topbar-right"><span class="prototype-tag">INTERAKTIVNÍ PROTOTYP</span><button class="text-button" id="about-button"><span class="info-icon" aria-hidden="true">i</span> O modelu</button></div>
+  </header>
+  <main class="workspace">
+    <section class="visual-panel" aria-label="3D model stadionu Eden">
+      <div class="scene-heading"><p class="eyebrow">FORTUNA ARENA · PRAHA</p><h1>Tvoje místo.<br><span>Tvůj Eden.</span></h1><p class="intro">Prohlédni si stadion z jiného úhlu.</p></div>
+      <div id="viewport" role="region" aria-label="Interaktivní 3D stadion. Tažením otáčej, kolečkem přibližuj. Sedadlo lze vybrat také v panelu vedle modelu." tabindex="0">
+        <div id="loading"><span class="loading-ring"></span><strong>Připravujeme tvůj výhled</strong><span>Stavíme tribuny Edenu…</span></div>
+      </div>
+      <div class="mode-bar" aria-label="Pohled na stadion"><button id="overview-button" class="mode-button active" aria-pressed="true">Celý stadion</button><button id="sector-button" class="mode-button" aria-pressed="false">Sektor 115</button><button id="seat-mode-button" class="mode-button" aria-pressed="false">Ze sedadla</button></div>
+      <div class="scene-tools"><button class="icon-button" id="zoom-in" aria-label="Přiblížit" title="Přiblížit">+</button><button class="icon-button" id="zoom-out" aria-label="Oddálit" title="Oddálit">−</button><span class="tool-separator"></span><button class="icon-button" id="reset-button" aria-label="Obnovit pohled" title="Obnovit pohled"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10a8 8 0 1 1 1 7M4 4v6h6"/></svg></button></div>
+      <button id="sector-label" class="sector-label"><span class="label-kicker">VYZKOUŠEJ VÝBĚR</span><strong>Sektor 115 <span>⊙</span></strong></button>
+      <div class="scene-bottom"><div class="interaction-hint" id="interaction-hint"><svg width="17" height="21" viewBox="0 0 17 21" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="1" width="11" height="18" rx="5.5"/><path d="M8.5 4v4"/></svg><span>Tažením otáčej · kolečkem přibližuj</span></div><label class="roof-control"><input type="checkbox" id="roof-toggle"><span class="toggle-track"></span>Střecha</label></div>
+      <div id="seat-caption" class="seat-caption" hidden><span class="eyebrow">TVŮJ VÝHLED</span><strong id="seat-caption-text">Sektor 115 · řada 16 · sedadlo 12</strong><span>Tažením se rozhlížej · Esc pro návrat</span></div>
+      <div class="north-mark" aria-hidden="true"><span>S</span><svg width="22" height="30" viewBox="0 0 22 30"><path d="m11 2 8 24-8-5-8 5Z" fill="none" stroke="currentColor"/><path d="m11 2 0 19-8 5Z" fill="currentColor"/></svg></div>
+      <div id="tooltip" role="tooltip" hidden></div>
+      <div class="model-note">Zjednodušený model · orientační výhled</div>
+    </section>
+    <aside class="selection-panel" aria-labelledby="sector-title">
+      <div class="panel-top"><span class="eyebrow">VYBER SI SVÉ MÍSTO</span><span class="sector-count">1 ukázkový sektor</span></div>
+      <div class="sector-heading"><h2 id="sector-title">Sektor <span>115</span></h2><span class="east-badge">VÝCHOD</span></div>
+      <p class="stand-name">Tribuna Františka Veselého</p>
+      <div class="mini-stadium" aria-label="Sektor 115 leží na východní podélné tribuně"><svg viewBox="0 0 320 105" role="img" aria-label="Orientační půdorys se zvýrazněným sektorem 115"><path d="M82 11h156q30 0 30 26v31q0 26-30 26H82q-30 0-30-26V37q0-26 30-26Z" fill="#242a2e" stroke="#41484d"/><path d="M88 26h144q21 0 21 16v21q0 16-21 16H88q-21 0-21-16V42q0-16 21-16Z" fill="#171c1f" stroke="#41484d"/><path d="M84 12v15M112 12v14M140 12v14M168 12v14M196 12v14M224 12v14M84 79v14M112 79v14M140 79v14M168 79v14M196 79v14M224 79v14M53 39h15M53 65h15M253 39h15M253 65h15" stroke="#41484d"/><path d="M168 79h28v14h-28Z" fill="#f1bd6b"/><rect x="100" y="33" width="120" height="39" rx="1" fill="none" stroke="#59655e"/><path d="M160 33v39M100 42h17v21h-17M220 42h-17v21h17" fill="none" stroke="#59655e"/><circle cx="160" cy="52.5" r="9" fill="none" stroke="#59655e"/><text x="290" y="57" fill="#949d9e" font-size="12" font-family="sans-serif">S</text><circle cx="181" cy="85" r="3" fill="#171c1f"/></svg></div>
+      <div class="map-title"><h3>Vyber sedadlo</h3><span id="map-selection">Řada 16 · místo 12</span></div>
+      <div class="seat-map-wrap"><svg id="seat-map" viewBox="0 0 320 227" role="group" aria-label="Orientační mapa 32 řad a 24 sedadel. Alternativou jsou výběrová pole pod mapou."></svg><div class="pitch-direction"><span></span>HŘIŠTĚ<span></span></div></div>
+      <div class="map-legend"><span><i class="seat-swatch"></i>Ukázkové sedadlo</span><span><i class="seat-swatch selected"></i>Tvůj výběr</span></div>
+      <div class="selection-inputs"><label for="row-select">Řada<select id="row-select"></select></label><label for="seat-select">Sedadlo<select id="seat-select"></select></label></div>
+      <div class="selected-summary" aria-live="polite" aria-atomic="true"><div class="seat-line"><svg width="28" height="30" viewBox="0 0 28 30" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 17V5q0-2 2-2h12q2 0 2 2v12M4 17h20v5H4zM7 22v5M21 22v5"/></svg><div><strong id="selection-title">Řada 16, sedadlo 12</strong><span>Sektor 115 · ukázkové číslování</span></div></div><div class="seat-metrics"><div><strong id="distance-metric">19 m</strong><span>od postranní čáry</span></div><div><strong id="height-metric">9,1 m</strong><span>výška pohledu</span></div></div></div>
+      <button id="view-button" class="primary-button"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg><span>Podívat se z místa</span></button>
+      <p class="panel-note">Řady a čísla sedadel jsou demonstrační.<br>Výhled slouží k orientaci, nejde o prodej vstupenek.</p>
+    </aside>
+  </main>
+  <footer><span>EDEN / PROSTOR PRO ZÁŽITEK</span><span>Veřejné podklady. Vlastní 3D model. <button class="footer-link" id="sources-button">Podklady a přesnost</button></span></footer>
+  <dialog id="about-dialog" aria-labelledby="about-title"><div class="dialog-header"><span class="eyebrow">O TOMTO PROTOTYPU</span><button id="close-dialog" class="icon-button" aria-label="Zavřít informace">×</button></div><h2 id="about-title">Poznej Eden<br>ze svého místa.</h2><p>První funkční prototyp rozpoznatelného, zjednodušeného stadionu. Interaktivní je sektor 115 na východní tribuně. Ostatní tribuny vytvářejí kontext výhledu.</p><h3>Co vychází z podkladů</h3><p>Hrací plocha 105 × 68 metrů, poloha sektoru 115, orientace tribun, červené sedačky, zastřešení a odlišné členění hlavní tribuny.</p><h3>Co je orientační</h3><p>Sklony a rozměry tribun, výšky VIP úrovní, rozteče a počty řad i sedadel. V sektoru používáme vlastní síť 32 řad × 24 sedadel. Číslování není ověřeno proti prodejnímu systému. Zobrazené vzdálenosti jsou vypočtené z tohoto modelu.</p><p>Výhled nezohledňuje diváky ani všechny překážky, zábradlí a oplocení. Neslouží k potvrzení skutečného výhledu konkrétní vstupenky.</p><h3>Veřejné podklady</h3><ul><li><a href="https://www.slavia.cz/cze/fortuna-arena" target="_blank" rel="noopener noreferrer">SK Slavia Praha — informace o stadionu</a></li><li><a href="https://www.slavia.cz/upload/media/2026/1785245574_cenovy-plan-fortuna-arena-cerven-2026-czweb.jpg" target="_blank" rel="noopener noreferrer">Oficiální plán stadionu, červen 2026</a></li><li><a href="https://www.vodafone.cz/nejen-pro-media/zajimave-cteni/pokryti-slavia-praha/" target="_blank" rel="noopener noreferrer">Fotografie interiéru — Vodafone</a></li></ul><p class="dialog-footnote">Neoficiální demonstrační projekt. Fotografie nejsou součástí modelu; sloužily jako vizuální reference. Vytvořeno pomocí Three.js.</p></dialog>
+  <script type="module" src="./app.js"></script>
+  <noscript><div class="no-script">Pro interaktivní model je potřeba zapnout JavaScript.</div></noscript>
+</body>
+</html>
